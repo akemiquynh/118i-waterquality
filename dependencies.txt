@@ -1,0 +1,15 @@
+openai
+streamlit
+os
+pandas
+dotenv
+fpdf
+folium
+requests
+streamlit_folium
+numpy
+pathlib
+json
+re
+random
+tempfile
