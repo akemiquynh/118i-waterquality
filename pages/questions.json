@@ -1,0 +1,88 @@
+[
+    {
+      "question": "What is the main source of drinking water in Santa Clara County?",
+      "options": ["Groundwater and Local surface water", "Desalination", "Rainwater collection"],
+      "answer": "Groundwater and Local surface water"
+    },
+    {
+      "question": "Which agency is primarily responsible for water quality in Santa Clara County?",
+      "options": ["EPA", "CalEPA", "Santa Clara Valley Water", "CDC"],
+      "answer": "Santa Clara Valley Water"
+    },
+    {
+      "question": "What is one common reason for boiling water notices in Santa Clara?",
+      "options": ["High fluoride", "Presence of bacteria", "Low chlorine", "High oxygen levels"],
+      "answer": "Presence of bacteria"
+    },
+    {
+      "question": "Why is chlorine added to tap water in Santa Clara?",
+      "options": ["To change the taste", "To soften the water", "To disinfect", "To remove lead"],
+      "answer": "To disinfect"
+    },
+    {
+      "question": "Which contaminant is a concern in older homes' plumbing?",
+      "options": ["Chlorine", "Lead", "Nitrates", "Fluoride"],
+      "answer": "Lead"
+    },
+    {
+      "question": "What does pH measure in water?",
+      "options": ["Bacteria level", "Hardness", "Acidity or alkalinity", "Turbidity"],
+      "answer": "Acidity or alkalinity"
+    },
+    {
+      "question": "What is turbidity in water?",
+      "options": ["Chlorine content", "Cloudiness due to particles", "Taste of water", "Acidity"],
+      "answer": "Cloudiness due to particles"
+    },
+    {
+      "question": "Why is fluoride added to Santa Clara’s water supply?",
+      "options": ["To kill bacteria", "To prevent tooth decay", "To reduce turbidity", "To balance pH"],
+      "answer": "To prevent tooth decay"
+    },
+    {
+      "question": "What is the safe level of lead in drinking water according to the EPA?",
+      "options": ["0 ppb", "5 ppb", "15 ppb", "30 ppb"],
+      "answer": "0 ppb"
+    },
+    {
+      "question": "What can cause nitrates to enter drinking water?",
+      "options": ["Old pipes", "Animal waste", "Agricultural runoff", "Chlorination"],
+      "answer": "Agricultural runoff"
+    },
+    {
+      "question": "Which of these is commonly used to treat water in Santa Clara?",
+      "options": ["Salt", "Lime", "Chlorine", "Mercury"],
+      "answer": "Chlorine"
+    },
+    {
+      "question": "Where can residents find annual water quality reports in Santa Clara?",
+      "options": ["City Hall", "EPA Office", "valleywater.org", "Local libraries only"],
+      "answer": "valleywater.org"
+    },
+    {
+      "question": "Which of these is NOT typically tested in Santa Clara's water?",
+      "options": ["Chlorine", "Arsenic", "Turbidity", "Caffeine"],
+      "answer": "Caffeine"
+    },
+    {
+      "question": "Which federal agency sets national water quality standards?",
+      "options": ["CDC", "FDA", "EPA", "NOAA"],
+      "answer": "EPA"
+    },
+    {
+      "question": "What does 'WQI' stand for in water testing?",
+      "options": ["Water Quality Index", "Water Quantity Indicator", "Waste Quality Inspection", "Well Quota Index"],
+      "answer": "Water Quality Index"
+    },
+    {
+      "question": "What part of Santa Clara’s water system helps store imported water?",
+      "options": ["Wells", "Dams", "Reservoirs", "Tanks"],
+      "answer": "Reservoirs"
+    },
+    {
+      "question": "Which natural event can temporarily affect water quality in Santa Clara?",
+      "options": ["Snowfall", "Earthquake", "Wildfire"],
+      "answer": "Wildfire"
+    }
+  ]
+  
