@@ -145,7 +145,7 @@ if st.button("Generate Recommendations"):
             for _, row in filtered_products.iterrows():
                 with st.container():
                     st.markdown(f"### [{row['Product Name']}]({row['Link']})")
-                    st.image(row['Image_URL'], width=150)
+                    st.image(row['Image_URL'], width=500)
                     st.markdown(f"**Type:** {row['Type']}  |  **Price:** {row['Price']}")
                     st.markdown(f"**Best For:** {row['Best For']}")
                     st.markdown(f"**Pros:** {row['Pros']}")
