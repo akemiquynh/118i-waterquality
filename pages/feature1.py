@@ -50,7 +50,7 @@ st.title("💧 AquaEdvisor ")
 # --------------------
 @st.cache_data
 def load_product_data():
-    return pd.read_csv("updated_water_filter_recommendations.csv")
+    return pd.read_csv("water_filter_recommendations_detailed.csv")
 
 product_df = load_product_data()
 
