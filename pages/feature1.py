@@ -43,7 +43,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-st.title("💧 Personalized Water Quality Advisor")
+st.title("💧 AquaEdvisor ")
 
 # --------------------
 # Load Product Data from CSV
