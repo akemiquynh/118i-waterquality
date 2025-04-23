@@ -50,7 +50,7 @@ st.title("💧 Personalized Water Quality Advisor")
 # --------------------
 @st.cache_data
 def load_product_data():
-    return pd.read_csv("water_filter_recommendations_detailed.csv")
+    return pd.read_csv("updated_water_filter_recommendations.csv")
 
 product_df = load_product_data()
 
@@ -145,6 +145,7 @@ if st.button("Generate Recommendations"):
             for _, row in filtered_products.iterrows():
                 with st.container():
                     st.markdown(f"### [{row['Product Name']}]({row['Link']})")
+                    st.image(row['Image_URL'], width=150)
                     st.markdown(f"**Type:** {row['Type']}  |  **Price:** {row['Price']}")
                     st.markdown(f"**Best For:** {row['Best For']}")
                     st.markdown(f"**Pros:** {row['Pros']}")
