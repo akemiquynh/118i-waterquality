@@ -71,6 +71,10 @@ st.markdown("""
     h1:hover a, h2:hover a, h3:hover a {
         display: none;
     }
+    /* Center Tabs */
+    div[data-testid="stTabs"] > div {
+        justify-content: center;
+    }
     </style>
 """, unsafe_allow_html=True)
 
