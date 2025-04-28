@@ -51,7 +51,7 @@ st.markdown("""
 
     /* Make tab text bigger and bold */
     button[data-baseweb="tab"] {
-        font-size: 24px !important;
+        font-size: 40px !important;
         font-weight: bold;
     }
 
