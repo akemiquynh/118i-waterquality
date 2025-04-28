@@ -47,10 +47,10 @@ st.markdown(f"""
     </style>
 
     <nav>
-        <a href="/" class="{ 'active' if current_page == 'home' else '' }">🏠 Home</a>
-        <a href="/AquaEducator" class="{ 'active' if current_page == 'aquaeducator' else '' }">📚 AquaEducator</a>
-        <a href="/AquaEdvisor" class="{ 'active' if current_page == 'aquaedvisor' else '' }">💧 AquaEdvisor</a>
-        <a href="/Feature2" class="{ 'active' if current_page == 'feature2' else '' }">🛠️ Feature2</a>
+        <a href="/" target="_self" class="{ 'active' if current_page == 'home' else '' }">🏠 Home</a>
+        <a href="/AquaEducator" target="_self" class="{ 'active' if current_page == 'aquaeducator' else '' }">📚 AquaEducator</a>
+        <a href="/AquaEdvisor" target="_self" class="{ 'active' if current_page == 'aquaedvisor' else '' }">💧 AquaEdvisor</a>
+        <a href="/AquaMap" target="_self" class="{ 'active' if current_page == 'aquamap' else '' }">🗺️ AquaMap</a>
     </nav>
 """, unsafe_allow_html=True)
 
