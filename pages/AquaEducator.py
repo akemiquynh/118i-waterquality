@@ -11,28 +11,76 @@ import re
 import random
 import tempfile
 
+# --- AquaED Styling: Navbar and Logo ---
+st.set_page_config(page_title="AquaEducator", page_icon="📚", layout="wide")
 
+current_page = "aquaeducator"
 
+st.markdown(f"""
+    <style>
+    nav {{
+        background-color: #E6F2F8;
+        padding: 10px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        z-index: 999;
+    }}
+    nav a {{
+        margin: 0 15px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #003049;
+        text-decoration: none;
+        padding-bottom: 5px;
+        border-bottom: 3px solid transparent;
+    }}
+    nav a.active {{
+        color: #0077B6;
+        border-bottom: 3px solid #0077B6;
+    }}
+    nav a:hover {{
+        color: #0077B6;
+        text-decoration: underline;
+    }}
+    #MainMenu, footer {{visibility: hidden;}}
+    </style>
+
+    <nav>
+        <a href="/" class="{ 'active' if current_page == 'home' else '' }">🏠 Home</a>
+        <a href="/AquaEducator" class="{ 'active' if current_page == 'aquaeducator' else '' }">📚 AquaEducator</a>
+        <a href="/AquaEdvisor" class="{ 'active' if current_page == 'aquaedvisor' else '' }">💧 AquaEdvisor</a>
+        <a href="/Feature2" class="{ 'active' if current_page == 'feature2' else '' }">🛠️ Feature2</a>
+    </nav>
+""", unsafe_allow_html=True)
+
+col1, col2 = st.columns([1, 8])
+with col1:
+    st.image("aquaed_logo.png", width=100)
+with col2:
+    st.markdown("<h1 style='color:#003049; padding-top: 20px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
+
+st.markdown("---")
+
+# --- AquaEducator Actual App Content Starts ---
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
-
 
 tab1, tab2, tab3 = st.tabs(["Water Fun Facts", "Water Quality FAQ", "Water Quality Quiz"])
 
 # Language Options
 option = st.selectbox(
-"Select language", ("English", "Spanish", "Vietnamese", "Mandarin", "Korean")
+    "Select language", ("English", "Spanish", "Vietnamese", "Mandarin", "Korean")
 )
 st.write("You selected:", option)
 
+# --- Fun Facts Tab ---
 with tab1:
-    st.title("🌊Water Fun Fact🌊")
+    st.title("🌊 Water Fun Fact 🌊")
 
-    # Initialize session state
     if "fun_fact" not in st.session_state:
         st.session_state.fun_fact = ""
         st.session_state.fun_fact_audio = None
 
-    # Fun Fact generator
     def get_completion(prompt, model="gpt-3.5-turbo"):
         completion = client.chat.completions.create(
             model=model,
@@ -43,7 +91,6 @@ with tab1:
         )
         return completion.choices[0].message.content
 
-    # TTS helper
     def speak_text(text, voice="nova"):
         try:
             response = openai.audio.speech.create(
@@ -54,16 +101,14 @@ with tab1:
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
                 tmp.write(response.read())
                 return tmp.name
-        except Exception as e:
+        except Exception:
             st.warning("TTS failed.")
             return None
 
-    # Form for user input
     with st.form(key="chat"):
         prompt = st.text_input("Want a local fact? Enter your city:")
         submitted = st.form_submit_button("🔍 Generate a Fun Fact")
 
-    # After form submission
     if submitted and prompt:
         fact_prompt = (
             f"Give me one short, interesting fun fact about {prompt} water quality, "
@@ -73,7 +118,6 @@ with tab1:
         st.session_state.fun_fact = description
         st.session_state.fun_fact_audio = speak_text(description)
 
-    # Display fun fact
     if st.session_state.fun_fact:
         st.write(st.session_state.fun_fact)
 
@@ -83,8 +127,7 @@ with tab1:
             else:
                 st.warning("Audio not available.")
 
-                
-
+# --- FAQ Tab ---
 with tab2:
     questions = [
         "What is pH in water?",
@@ -98,7 +141,6 @@ with tab2:
 
     st.title("Water Quality FAQs")
 
-    # TTS helper
     def speak_text(text, voice="nova"):
         try:
             response = openai.audio.speech.create(
@@ -109,11 +151,10 @@ with tab2:
             with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
                 tmp.write(response.read())
                 return tmp.name
-        except Exception as e:
+        except Exception:
             st.warning("TTS failed.")
             return None
 
-    # Session state for caching response and audio
     if "faq_answer" not in st.session_state:
         st.session_state.faq_answer = ""
         st.session_state.faq_audio = None
@@ -128,17 +169,16 @@ with tab2:
                     messages=[
                         {
                             "role": "system",
-                            "content": "You are an expert in water quality and environmental science. Be knowledgeable in Valley Water and its services in Santa Clara County"
+                            "content": "You are an expert in water quality and environmental science. Be knowledgeable in Valley Water and its services in Santa Clara County."
                         },
                         {
                             "role": "user",
-                            "content": f"Answer {selected_question} based on the location of Santa Clara County with a brief description, into bullet points and addresses if applicable, use data from the Valley Water official website, translate into {option} in the same format"
+                            "content": f"Answer {selected_question} based on Santa Clara County with a brief description, into bullet points, translate into {option}."
                         }
                     ],
                     temperature=0.7,
                     max_tokens=300
                 )
-
                 answer = response.choices[0].message.content
                 st.session_state.faq_answer = answer
                 st.session_state.faq_audio = speak_text(answer)
@@ -146,7 +186,6 @@ with tab2:
             except Exception as e:
                 st.error(f"Something went wrong: {str(e)}")
 
-    # Display answer and TTS button
     if st.session_state.faq_answer:
         st.markdown(f"**Answer:** {st.session_state.faq_answer}")
 
@@ -156,16 +195,14 @@ with tab2:
             else:
                 st.warning("Audio not available.")
 
-    st.markdown(
-        """
-        🔗 **Learn more about water quality in Santa Clara County:**  
-        [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
-        """
-    )
+    st.markdown("""
+    🔗 **Learn more about water quality in Santa Clara County:**  
+    [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
+    """)
 
-# --- Water Quality Quiz ---
+# --- Quiz Tab ---
 with tab3:
-    st.title("💧Water Quality Quiz")
+    st.title("💧 Water Quality Quiz")
     MAX_QUESTIONS = 3
 
     def load_questions(filepath="questions.json"):
@@ -176,8 +213,7 @@ with tab3:
         prompt = (
             f"Question: {question_text}\n"
             f"Correct Answer: {correct_answer}\n"
-            f"Please provide a short explanation of why this answer is correct, suitable for a general public quiz. "
-            f"Respond in {option}."
+            f"Please provide a short explanation suitable for a general public quiz. Respond in {option}."
         )
         try:
             response = client.chat.completions.create(
@@ -193,19 +229,6 @@ with tab3:
         except Exception as e:
             return f"❌ Could not generate explanation: {e}"
 
-    def speak_text(text, voice="nova"):
-        try:
-            response = openai.audio.speech.create(
-                model="tts-1",
-                voice=voice,
-                input=text
-            )
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
-                tmp.write(response.read())
-                return tmp.name
-        except:
-            return None
-
     if "all_questions" not in st.session_state:
         st.session_state.all_questions = load_questions()
         random.shuffle(st.session_state.all_questions)
@@ -213,7 +236,6 @@ with tab3:
         st.session_state.answers = [None] * MAX_QUESTIONS
         st.session_state.explanations = [""] * MAX_QUESTIONS
         st.session_state.submitted_all = False
-        st.session_state.audio_paths = [None] * MAX_QUESTIONS
 
     st.markdown("""
     🔗 **Learn more about water quality in Santa Clara County:**  
@@ -227,7 +249,7 @@ with tab3:
             index=0 if not st.session_state.answers[idx] else q["options"].index(st.session_state.answers[idx]),
             key=f"q_{idx}"
         )
-# --- After Submit ---
+
         if st.session_state.submitted_all:
             user_answer = st.session_state.answers[idx]
             correct_answer = q["answer"]
@@ -260,4 +282,3 @@ with tab3:
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
-
