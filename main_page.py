@@ -51,8 +51,9 @@ st.markdown("""
 
     /* Make tab text bigger and bold */
     button[data-baseweb="tab"] {
-        font-size: 40px !important;
-        font-weight: bold;
+    font-size: 30px !important;  /* or even 32px, 34px */
+    font-weight: bold;
+    padding: 12px 24px; /* optional: add a little more padding */
     }
 
     /* Hide fullscreen expand button on images */
