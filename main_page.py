@@ -43,20 +43,18 @@ st.markdown("""
         to {opacity: 1;}
     }
 
-    /* Correct way to center tabs */
-    div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
+    /* --- Only Center + Style Main Navigation Tabs --- */
+    #main-tabs-container div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
         justify-content: center;
         display: flex;
     }
 
-    /* Actually make tabs text bigger */
-    button[data-baseweb="tab"] > div:first-child {
-        font-size: 24px !important;  /* Now it REALLY changes the text size */
+    #main-tabs-container button[data-baseweb="tab"] > div:first-child {
+        font-size: 26px !important;
         font-weight: bold !important;
     }
 
-    /* Remove extra margin above tabs */
-    div[data-testid="stTabs"] {
+    #main-tabs-container div[data-testid="stTabs"] {
         margin-top: -30px;
     }
 
@@ -65,17 +63,22 @@ st.markdown("""
         display: none;
     }
 
-    /* Hide anchor links on headings */
+    /* Hide anchor link icons */
     h1:hover a, h2:hover a, h3:hover a {
         display: none;
     }
     </style>
 """, unsafe_allow_html=True)
 
+
 st.markdown("---")
 
 # --- Main Tabs ---
-main_tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺️ AquaMap"])
+st.markdown('<div id="main-tabs-container">', unsafe_allow_html=True)
+
+tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺️ AquaMap"])
+
+st.markdown('</div>', unsafe_allow_html=True)
 
 # ===============================
 # 🏠 Home
