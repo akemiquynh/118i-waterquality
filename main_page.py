@@ -43,24 +43,29 @@ st.markdown("""
         to {opacity: 1;}
     }
 
-    /* --- Correct way to center Tabs --- */
+    /* Correct way to center tabs */
     div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
         justify-content: center;
         display: flex;
     }
 
-    button[data-baseweb="tab"] {
-    font-size: 40px !important;  /* or even 32px, 34px */
-    font-weight: bold;
-    padding: 12px 24px; /* optional: add a little more padding */
+    /* Actually make tabs text bigger */
+    button[data-baseweb="tab"] > div:first-child {
+        font-size: 26px !important;  /* Now it REALLY changes the text size */
+        font-weight: bold !important;
     }
 
-    /* Hide fullscreen expand button on images */
+    /* Remove extra margin above tabs */
+    div[data-testid="stTabs"] {
+        margin-top: -30px;
+    }
+
+    /* Hide fullscreen expand button */
     button[title="View fullscreen"] {
         display: none;
     }
 
-    /* Hide anchor link icons next to headings */
+    /* Hide anchor links on headings */
     h1:hover a, h2:hover a, h3:hover a {
         display: none;
     }
