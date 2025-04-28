@@ -24,7 +24,7 @@ st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 # --- Centered Logo and Title using st.image() ---
 st.markdown("<div style='text-align: center; margin-top: -40px;'>", unsafe_allow_html=True)
 st.image("aquaed_logo.png", width=500)
-st.markdown("<h1 style='color:#003049; font-size:45px; margin-top: 10px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='color:#003049; font-size:45px; margin-top: 10px;'>Empowering You to Understand and Improve Your Water</h1>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
 # --- Optional thin separator line ---
