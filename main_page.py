@@ -43,31 +43,27 @@ st.markdown("""
         to {opacity: 1;}
     }
 
-    /* Center Tabs */
-    div[data-testid="stTabs"] > div {
+    /* --- Correct way to center Tabs --- */
+    div[data-testid="stTabs"] div[data-baseweb="tab-list"] {
         justify-content: center;
+        display: flex;
     }
 
-    /* Optional: make tabs text bigger */
+    /* Make tab text bigger and bold */
     button[data-baseweb="tab"] {
         font-size: 24px !important;
         font-weight: bold;
     }
-    
+
     /* Hide fullscreen expand button on images */
     button[title="View fullscreen"] {
         display: none;
     }
 
-    /* Hide the anchor link icon next to headings */
+    /* Hide anchor link icons next to headings */
     h1:hover a, h2:hover a, h3:hover a {
         display: none;
     }
-    /* Center Tabs */
-    div[data-testid="stTabs"] > div {
-        justify-content: center;
-    }
-    
     </style>
 """, unsafe_allow_html=True)
 
