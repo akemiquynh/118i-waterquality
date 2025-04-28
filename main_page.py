@@ -44,7 +44,7 @@ st.markdown("""
 
     /* --- Make Tabs Fonts Larger --- */
     button[data-baseweb="tab"] {
-        font-size: 22px !important; /* <-- adjust the number bigger or smaller */
+        font-size: 30px !important; /* <-- adjust the number bigger or smaller */
         font-weight: bold;
         padding: 12px 20px;
     }
