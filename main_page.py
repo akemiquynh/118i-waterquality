@@ -29,12 +29,8 @@ with col1:
 with col2:
     st.image("aquaed_logo.png", width=500)
     st.markdown("""
-    <h1 style='color:#003049; font-size:48px; margin-top: -20px; text-align: center;'>
-    Water Quality Made Simple
-    </h1>
-    <h3 style='color:#0077B6; font-size:24px; font-weight: normal; margin-top: 5px; text-align: center;'>
-    Explore, Learn, and Protect Your Water
-    </h3>
+    <h1 style='color:#003049; font-size:48px; margin-top: -30px; text-align: center;'>Water Quality Made Simple</h1>
+    <h3 style='color:#0077B6; font-size:20px; font-weight: normal; margin-top: 5px; text-align: center;'>Explore, Learn, and Protect Your Water</h3>
     """, unsafe_allow_html=True)
 with col3:
     st.empty()
