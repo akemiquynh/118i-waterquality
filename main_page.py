@@ -21,18 +21,21 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 
-# --- Centered Logo and Title (tightened spacing) ---
+# --- Centered Logo, Title, and Subtitle (tightened spacing) ---
 st.markdown("<div style='text-align: center; margin-top: -50px;'>", unsafe_allow_html=True)
 st.image("aquaed_logo.png", width=500)
 st.markdown("""
 <h1 style='color:#003049; font-size:48px; margin-top: -20px;'>
 Water Quality Made Simple
 </h1>
+<h3 style='color:#0077B6; font-size:24px; margin-top: 5px; font-weight: normal;'>
+Explore, Learn, and Protect Your Water
+</h3>
 """, unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- Thin line under title ---
-st.markdown("<hr style='margin-top: 5px; margin-bottom: 10px; border: 1px solid #0077B6;'>", unsafe_allow_html=True)
+# --- Thin line under subtitle ---
+st.markdown("<hr style='margin-top: 10px; margin-bottom: 10px; border: 1px solid #0077B6;'>", unsafe_allow_html=True)
 
 # --- Smooth fade-in animation ---
 st.markdown("""
