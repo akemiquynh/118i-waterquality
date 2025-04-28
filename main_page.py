@@ -48,6 +48,16 @@ st.markdown("""
         font-weight: bold;
         padding: 12px 20px;
     }
+    
+    /* Hide fullscreen expand button on images */
+    button[title="View fullscreen"] {
+        display: none;
+    }
+
+    /* Hide the anchor link icon next to headings */
+    h1:hover a, h2:hover a, h3:hover a {
+        display: none;
+    }
     </style>
 """, unsafe_allow_html=True)
 
