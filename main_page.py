@@ -21,30 +21,15 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 
-# --- True Centered Logo, Title, and Subtitle ---
-col1, col2, col3 = st.columns([1, 2, 1])
-
-with col1:
-    st.empty()
-
-with col2:
-    st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
-    st.image("aquaed_logo.png", width=300)
-    st.markdown("""
-    <h1 style='color:#003049; font-size:48px; margin-top: -10px;'>
-    Water Quality Made Simple
-    </h1>
-    <h3 style='color:#0077B6; font-size:20px; font-weight: normal; margin-top: 5px;'>
-    Explore, Learn, and Protect Your Water
-    </h3>
-    """, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
-
-with col3:
-    st.empty()
-
-# Thin line under subtitle
-st.markdown("<hr style='margin-top: 5px; margin-bottom: 10px; border: 0.5px solid #0077B6;'>", unsafe_allow_html=True)
+# --- Perfectly Centered Logo, Title, and Subtitle (using pure HTML) ---
+st.markdown("""
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: -40px;">
+    <img src="https://i.imgur.com/KpJbbvV.png" style="width: 500px; height: auto; margin-bottom: -10px;">
+    <h1 style="color:#003049; font-size:48px; margin-top: 0px;">Water Quality Made Simple</h1>
+    <h3 style="color:#0077B6; font-size:20px; font-weight: normal; margin-top: 5px;">Explore, Learn, and Protect Your Water</h3>
+</div>
+<hr style="margin-top: 10px; margin-bottom: 10px; border: 0.5px solid #0077B6;">
+""", unsafe_allow_html=True)
 
 # --- Smooth fade-in animation ---
 st.markdown("""
