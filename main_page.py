@@ -76,7 +76,7 @@ st.markdown("---")
 # --- Main Tabs ---
 st.markdown('<div id="main-tabs-container">', unsafe_allow_html=True)
 
-tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺️ AquaMap"])
+main_tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺️ AquaMap"])
 
 st.markdown('</div>', unsafe_allow_html=True)
 
