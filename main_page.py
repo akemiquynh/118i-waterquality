@@ -49,7 +49,6 @@ st.markdown("""
         display: flex;
     }
 
-    /* Make tab text bigger and bold */
     button[data-baseweb="tab"] {
     font-size: 30px !important;  /* or even 32px, 34px */
     font-weight: bold;
