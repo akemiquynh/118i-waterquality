@@ -1,20 +1,10 @@
 import streamlit as st
-from urllib.parse import unquote
 
 # Set page config
 st.set_page_config(page_title="AquaED Home", page_icon=":droplet:", layout="wide")
 
-# Detect current page
-path = unquote(st.get_page_url_path())
-
-page_mapping = {
-    "/": "home",
-    "/AquaEducator": "aquaeducator",
-    "/AquaEdvisor": "aquaedvisor",
-    "/Feature2": "feature2",
-}
-
-current_page = page_mapping.get(path.lower(), "home")
+# Set current page manually
+current_page = "home"  # Set this manually in each page
 
 # Navbar
 st.markdown(f"""
