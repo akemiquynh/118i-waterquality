@@ -349,7 +349,7 @@ with main_tabs[3]:
     def print_quality_info(zip_code):
         match = df[df["ZIP Code"] == zip_code]
         if match.empty:
-            st.write("There is no water quality data found for this location.")
+            st.write("Water quality score data could not be found for this location.")
         else:
             entry = match.iloc[0]
             metro = entry["City"]
