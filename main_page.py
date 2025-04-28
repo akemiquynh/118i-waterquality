@@ -360,7 +360,7 @@ with main_tabs[3]:
 
     st.markdown("""
     Please select your location on the map and click "Submit Location" to learn more about water quality in your city. 
-    For cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
+    For large cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
     """)
 
     map = folium.Map(location=[37.6110, -122.2050], zoom_start=10)
