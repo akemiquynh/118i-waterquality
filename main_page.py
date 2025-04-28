@@ -21,12 +21,13 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 
-# --- Centered Logo and Title for Large Logo ---
-# --- Centered Logo and Title ---
-st.markdown("<div style='text-align: center;'>", unsafe_allow_html=True)
+# --- Centered Logo and Title using st.image() ---
+st.markdown("<div style='text-align: center; margin-top: -40px;'>", unsafe_allow_html=True)
 st.image("aquaed_logo.png", width=500)
-st.markdown("<h1 style='color:#003049; font-size:48px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='color:#003049; font-size:48px; margin-top: 10px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
 st.markdown("</div>", unsafe_allow_html=True)
+
+# --- Optional thin separator line ---
 st.markdown("<hr style='margin-top: 10px; margin-bottom: 10px; border: 1px solid #0077B6;'>", unsafe_allow_html=True)
 
 # --- Smooth fade-in animation ---
