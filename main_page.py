@@ -11,26 +11,6 @@ from openai import OpenAI
 from streamlit_folium import st_folium
 import folium
 
-st.markdown("""
-    <style>
-    /* Smooth fade animation */
-    div[data-testid="stVerticalBlock"] > div {
-        animation: fadeEffect 0.7s;
-    }
-    @keyframes fadeEffect {
-        from {opacity: 0;}
-        to {opacity: 1;}
-    }
-
-    /* --- Make Tabs Fonts Larger --- */
-    button[data-baseweb="tab"] {
-        font-size: 30px !important; /* <-- adjust the number bigger or smaller */
-        font-weight: bold;
-        padding: 12px 20px;
-    }
-    </style>
-""", unsafe_allow_html=True)
-
 # --- Load environment variables ---
 load_dotenv()
 
@@ -44,6 +24,7 @@ st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 # --- Smooth fade-in animation ---
 st.markdown("""
     <style>
+    /* Smooth fade animation */
     div[data-testid="stVerticalBlock"] > div {
         animation: fadeEffect 0.7s;
     }
@@ -51,15 +32,15 @@ st.markdown("""
         from {opacity: 0;}
         to {opacity: 1;}
     }
+
+    /* --- Make Tabs Fonts Larger --- */
+    button[data-baseweb="tab"] {
+        font-size: 22px !important; /* <-- adjust the number bigger or smaller */
+        font-weight: bold;
+        padding: 12px 20px;
+    }
     </style>
 """, unsafe_allow_html=True)
-
-# --- Logo and Title ---
-col1, col2 = st.columns([1, 8])
-with col1:
-    st.image("aquaed_logo.png", width=100)
-with col2:
-    st.markdown("<h1 style='color:#003049; padding-top: 20px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
 
 st.markdown("---")
 
