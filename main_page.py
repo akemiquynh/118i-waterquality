@@ -76,19 +76,19 @@ st.markdown("---")
 # --- Main Tabs ---
 st.markdown('<div id="main-tabs-container">', unsafe_allow_html=True)
 
-main_tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺️ AquaMap"])
+tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺️ AquaMap"])
 
 st.markdown('</div>', unsafe_allow_html=True)
 
 # ===============================
 # 🏠 Home
-with main_tabs[0]:
+with tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
 
 # ===============================
 # 📚 AquaEducator
-with main_tabs[1]:
+with tabs[1]:
     st.header("📚 AquaEducator")
 
     language_option = st.selectbox(
@@ -212,7 +212,7 @@ with main_tabs[1]:
             st.rerun()
 # ===============================
 # 💧 AquaEdvisor
-with main_tabs[2]:
+with tabs[2]:
     st.header("💧 AquaEdvisor")
 
     product_df = pd.read_csv("water_filter_recommendations_detailed.csv")
@@ -324,7 +324,7 @@ with main_tabs[2]:
 
 # ===============================
 # 🗺️ AquaMap
-with main_tabs[3]:
+with tabs[3]:
     st.header("📍 AquaMap: A Location-based Water Quality Tool")
 
     df = pd.read_csv("bayareawater.csv")
