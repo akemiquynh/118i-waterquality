@@ -41,7 +41,7 @@ st.markdown(f"""
         <a href="/" class="{ 'active' if current_page == 'home' else '' }">🏠 Home</a>
         <a href="/AquaEducator" class="{ 'active' if current_page == 'aquaeducator' else '' }">📚 AquaEducator</a>
         <a href="/AquaEdvisor" class="{ 'active' if current_page == 'aquaedvisor' else '' }">💧 AquaEdvisor</a>
-        <a href="/Feature2" class="{ 'active' if current_page == 'feature2' else '' }">🛠️ Feature2</a>
+        <a href="/AquaInsight" class="{ 'active' if current_page == 'aquainsight' else '' }">🛠️ AquaInsight</a>
     </nav>
 """, unsafe_allow_html=True)
 
