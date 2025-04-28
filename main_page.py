@@ -21,26 +21,27 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 
-# --- Centered Logo, Title, and Subtitle with st.image() ---
-st.markdown("<div style='text-align: center; margin-top: -50px;'>", unsafe_allow_html=True)
+# --- Centered Logo, Title, and Subtitle (true centering) ---
+col1, col2, col3 = st.columns([1,2,1])
 
-# Display the logo
-st.image("aquaed_logo.png", width=500)
+with col1:
+    st.empty()  # empty column for spacing
+with col2:
+    st.image("aquaed_logo.png", width=500)
+    st.markdown("""
+    <h1 style='color:#003049; font-size:48px; margin-top: -20px; text-align: center;'>
+    Water Quality Made Simple
+    </h1>
+    <h3 style='color:#0077B6; font-size:24px; font-weight: normal; margin-top: 5px; text-align: center;'>
+    Explore, Learn, and Protect Your Water
+    </h3>
+    """, unsafe_allow_html=True)
+with col3:
+    st.empty()
 
-# Display the title and subtitle
-st.markdown("""
-<h1 style='color:#003049; font-size:48px; margin-top: -20px; text-align: center;'>
-Water Quality Made Simple
-</h1>
-<h3 style='color:#0077B6; font-size:24px; font-weight: normal; margin-top: 5px; text-align: center;'>
-Explore, Learn, and Protect Your Water
-</h3>
-""", unsafe_allow_html=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
-
-# --- Optional thin separator ---
+# --- Thin line under header ---
 st.markdown("<hr style='margin-top: 10px; margin-bottom: 10px; border: 1px solid #0077B6;'>", unsafe_allow_html=True)
+
 
 # --- Smooth fade-in animation ---
 st.markdown("""
