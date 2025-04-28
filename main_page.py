@@ -24,9 +24,9 @@ st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 # --- Logo and Title ---
 col1, col2 = st.columns([1, 8])
 with col1:
-    st.image("aquaed_logo.png", width=500)
+    st.image("aquaed_logo.png", width=800)
 with col2:
-    st.markdown("<h1 style='color:#003049; padding-top: 20px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
+    st.markdown("<h1 style='color:#003049; padding-top: 25px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
 
 st.markdown("---")
 
