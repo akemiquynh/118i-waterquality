@@ -78,7 +78,7 @@ def get_completion(prompt, model="gpt-3.5-turbo"):
    completion = client.chat.completions.create(
         model=model,
         messages=[
-            {"role": "system", "content": "Reply with a list of four issues regarding water purification for the user's given city correlating with their zip code response. You must mention the name of the city. Each entry in the list should be no more than 4 sentences long. Details should be specific to the location. Please add 'Continue exploring the app to see what you can do to help your community' at the end of your response."},
+            {"role": "system", "content": "Reply with a list of four issues regarding water quality for the user's given city correlating with their zip code response. You must mention the name of the city. Each entry in the list should be no more than 4 sentences long. Details should be specific to the location. Please add 'Continue exploring the app to see what you can do to help your community' at the end of your response."},
             {"role": "user", "content": prompt},
         ]
     )
