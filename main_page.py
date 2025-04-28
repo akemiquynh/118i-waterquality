@@ -51,7 +51,7 @@ st.markdown("""
 
     /* Actually make tabs text bigger */
     button[data-baseweb="tab"] > div:first-child {
-        font-size: 24px !important;  /* Now it REALLY changes the text size */
+        font-size: 20px !important;  /* Now it REALLY changes the text size */
         font-weight: bold !important;
     }
 
