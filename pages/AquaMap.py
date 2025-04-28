@@ -100,7 +100,7 @@ def print_quality_info(zip):
     return None
 
 # --- Map + User Interaction ---
-st.title("📍 Location-based Water Quality Tool")
+st.title("📍 AquaMap: A Location-based Water Quality Tool")
 st.markdown("""
 Please select your location on the map to learn more about water quality in your city. 
 For cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
