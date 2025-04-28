@@ -6,9 +6,9 @@ from openai import OpenAI
 from streamlit_folium import st_folium
 
 # --- AquaED Styling: Navbar and Logo ---
-st.set_page_config(page_title="AquaMap", page_icon="🛠️", layout="wide")
+st.set_page_config(page_title="AquaInsight", page_icon="🛠️", layout="wide")
 
-current_page = "AquaMap"
+current_page = "AquaInsight"
 
 st.markdown(f"""
     <style>
@@ -44,7 +44,7 @@ st.markdown(f"""
         <a href="/" target="_self" class="{ 'active' if current_page == 'home' else '' }">🏠 Home</a>
         <a href="/AquaEducator" target="_self" class="{ 'active' if current_page == 'aquaeducator' else '' }">📚 AquaEducator</a>
         <a href="/AquaEdvisor" target="_self" class="{ 'active' if current_page == 'aquaedvisor' else '' }">💧 AquaEdvisor</a>
-        <a href="/AquaMap" target="_self" class="{ 'active' if current_page == 'aquamap' else '' }">🗺️ AquaMap</a>
+        <a href="/AquaInsight" target="_self" class="{ 'active' if current_page == 'aquainsight' else '' }">🗺️ AquaInsight</a>
     </nav>
 """, unsafe_allow_html=True)
 
@@ -100,7 +100,7 @@ def print_quality_info(zip):
     return None
 
 # --- Map + User Interaction ---
-st.title("📍 AquaMap: A Location-based Water Quality Tool")
+st.title("📍 AquaInsight: A Location-based Water Quality Tool")
 st.markdown("""
 Please select your location on the map to learn more about water quality in your city. 
 For cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
