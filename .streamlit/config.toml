@@ -1,7 +1,7 @@
 [theme]
 base="light"
-primaryColor="#0077B6"         # Deep water blue
-backgroundColor="#E6F2F8"      # Very light blue background
-secondaryBackgroundColor="#FFFFFF"  # White cards/containers
-textColor="#003049"            # Dark navy text for good contrast
+primaryColor="#0077B6"           # Deep water blue (buttons, accents)
+backgroundColor="#E6F2F8"        # Light blue background
+secondaryBackgroundColor="#FFFFFF" # White content panels
+textColor="#003049"              # Deep navy text
 font="sans serif"
