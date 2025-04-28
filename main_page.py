@@ -43,11 +43,15 @@ st.markdown("""
         to {opacity: 1;}
     }
 
-    /* --- Make Tabs Fonts Larger --- */
+    /* Center Tabs */
+    div[data-testid="stTabs"] > div {
+        justify-content: center;
+    }
+
+    /* Optional: make tabs text bigger */
     button[data-baseweb="tab"] {
-        font-size: 30px !important; /* <-- adjust the number bigger or smaller */
+        font-size: 24px !important;
         font-weight: bold;
-        padding: 12px 20px;
     }
     
     /* Hide fullscreen expand button on images */
@@ -63,6 +67,7 @@ st.markdown("""
     div[data-testid="stTabs"] > div {
         justify-content: center;
     }
+    
     </style>
 """, unsafe_allow_html=True)
 
