@@ -12,36 +12,6 @@ load_dotenv()
 client = openai.OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 st.set_page_config(page_title="💧 Water Quality Advisor", layout="wide")
-st.markdown("""
-    <style>
-    .stApp {
-        background-color: #1c1c1e;
-        color: #f2f2f2;
-    }
-    .stMarkdown, .stTextInput > div > input, .stTextArea > div > textarea,
-    .stSelectbox > div > div > div > div {
-        color: #f2f2f2 !important;
-        background-color: #2c2c2e !important;
-    }
-    .stButton>button {
-        background-color: #007acc;
-        color: white;
-        font-weight: bold;
-        border-radius: 8px;
-        padding: 10px 24px;
-    }
-    .stDownloadButton>button {
-        background-color: #28a745;
-        color: white;
-        font-weight: bold;
-        border-radius: 8px;
-        padding: 10px 24px;
-    }
-    h1, h2, h3, h4, h5, h6 {
-        color: #ffffff;
-    }
-    </style>
-""", unsafe_allow_html=True)
 
 st.title("💧 AquaEdvisor ")
 
