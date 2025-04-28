@@ -136,7 +136,7 @@ with tab2:
         "What are nitrates and why are they bad?",
         "How is my water cleaned?",
         "What are safe levels of lead in water?",
-        "Where are the water treatment plants near me?"
+        "Where are the water treatment plants in Santa Clara County?"
     ]
 
     st.title("Water Quality FAQs")
