@@ -58,10 +58,10 @@ with main_tabs[1]:
     st.header("📚 AquaEducator")
 
     language_option = st.selectbox(
-    "🌐 Select Language:",
-    ("English", "Spanish", "Vietnamese", "Mandarin", "Korean"),
-    key="educator_language"
-)
+        "🌐 Select Language:", 
+        ("English", "Spanish", "Vietnamese", "Mandarin", "Korean"), 
+        key="educator_language"
+    )
     edu_tabs = st.tabs(["Water Fun Facts", "Water Quality FAQ", "Water Quality Quiz"])
 
     # --- Water Fun Facts ---
@@ -176,7 +176,6 @@ with main_tabs[1]:
                 if key.startswith("quiz_") or key in ["quiz_questions", "quiz_answers", "quiz_submitted"]:
                     del st.session_state[key]
             st.rerun()
-
 # ===============================
 # 💧 AquaEdvisor
 with main_tabs[2]:
@@ -191,12 +190,11 @@ with main_tabs[2]:
         "Over $200": float('inf')
     }
 
-    language = st.selectbox(
-    "🌐 Select Language:",
-    ["English", "Spanish", "Vietnamese", "Mandarin", "Korean"],
-    key="advisor_language"
-)
-
+    advisor_language = st.selectbox(
+        "🌐 Select Language:", 
+        ["English", "Spanish", "Vietnamese", "Mandarin", "Korean"], 
+        key="advisor_language"
+    )
 
     zip_code = st.text_input("Enter your ZIP code:")
     issues = st.text_area("Describe any water issues you've noticed:")
@@ -213,14 +211,10 @@ with main_tabs[2]:
     if st.button("Generate Recommendations"):
         with st.spinner("Analyzing your water profile..."):
             traits = []
-            if is_parent:
-                traits.append("parent with young children")
-            if is_renter:
-                traits.append("renter")
-            if is_senior:
-                traits.append("senior citizen")
-            if is_eco_focused:
-                traits.append("eco-conscious")
+            if is_parent: traits.append("parent with young children")
+            if is_renter: traits.append("renter")
+            if is_senior: traits.append("senior citizen")
+            if is_eco_focused: traits.append("eco-conscious")
             user_traits = ", ".join(traits) if traits else "general user"
 
             prompt = f"""
@@ -229,7 +223,7 @@ with main_tabs[2]:
             Budget: {budget}.
             Traits: {user_traits}.
             Provide a brief water quality concern summary and filter system recommendations.
-            Translate into {language}.
+            Translate into {advisor_language}.
             """
 
             try:
@@ -262,7 +256,7 @@ with main_tabs[2]:
                     f"Name: {row['Product Name']}\nDescription: {row['Description']}\nPrice: {row['Price']}\nPros: {row['Pros']}\nCons: {row['Cons']}\nLink: {row['Link']}"
                     for _, row in filtered_products.iterrows()
                 ])
-                translation_prompt = f"Translate this product information into {language}:\n\n{product_text}"
+                translation_prompt = f"Translate this product information into {advisor_language}:\n\n{product_text}"
 
                 translation_response = client.chat.completions.create(
                     model="gpt-4",
@@ -282,7 +276,7 @@ with main_tabs[2]:
         pdf = FPDF()
         pdf.add_page()
         pdf.set_font("Arial", size=12)
-        pdf.multi_cell(0, 10, f"Water Quality Recommendations ({language})\n")
+        pdf.multi_cell(0, 10, f"Water Quality Recommendations ({advisor_language})\n")
         pdf.multi_cell(0, 10, recommendations_text)
 
         for product_text in translated_products:
@@ -297,7 +291,7 @@ with main_tabs[2]:
 # ===============================
 # 🗺️ AquaMap
 with main_tabs[3]:
-    st.header("🗺️ AquaMap")
+    st.header("📍 AquaMap: A Location-based Water Quality Tool")
 
     df = pd.read_csv("bayareawater.csv")
 
@@ -311,6 +305,33 @@ with main_tabs[3]:
                     return component["short_name"]
         return None
 
+    def get_completion(prompt, model="gpt-3.5-turbo"):
+        completion = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": "Reply with a list of four issues regarding water purification for the user's given city correlating with their zip code response. You must mention the name of the city. Each entry should be no more than 4 sentences long. Please add 'Continue exploring the app to see what you can do to help your community' at the end."},
+                {"role": "user", "content": prompt},
+            ]
+        )
+        return completion.choices[0].message.content
+
+    def print_quality_info(zip_code):
+        match = df[df["ZIP Code"] == zip_code]
+        if match.empty:
+            st.write("There is no water quality data found for this location.")
+        else:
+            entry = match.iloc[0]
+            metro = entry["City"]
+            score = entry["Water Quality Score"]
+            contaminants = entry["Common Contaminants"]
+            epa_status = "does" if entry["Meets EPA Standards"] == "Yes" else "does not"
+            st.write(f"{metro} (ZIP code {zip_code}) has a water quality score of {score}, which {epa_status} meet EPA standards. Some common contaminants in {metro}'s water include: {contaminants}.")
+
+    st.markdown("""
+    Please select your location on the map and click "Submit Location" to learn more about water quality in your city. 
+    For cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
+    """)
+
     map = folium.Map(location=[37.6110, -122.2050], zoom_start=10)
     map.add_child(folium.LatLngPopup())
     map_data = st_folium(map, width=700, height=500)
@@ -323,14 +344,9 @@ with main_tabs[3]:
         if 'latitude' in locals() and 'longitude' in locals():
             user_zip = get_zip(latitude, longitude)
             if user_zip:
-                match = df[df["ZIP Code"] == int(user_zip)]
-                if match.empty:
-                    st.write("No water quality data found.")
-                else:
-                    entry = match.iloc[0]
-                    st.write(f"{entry['City']} (ZIP {user_zip}): Water quality score {entry['Water Quality Score']}, Contaminants: {entry['Common Contaminants']}")
+                print_quality_info(int(user_zip))
+                st.write(get_completion(user_zip))
             else:
                 st.error("Could not determine ZIP code from selected location.")
         else:
             st.error("Please click a location on the map first.")
-
