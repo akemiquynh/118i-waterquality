@@ -57,7 +57,11 @@ with main_tabs[0]:
 with main_tabs[1]:
     st.header("📚 AquaEducator")
 
-    language_option = st.selectbox("🌐 Select Language:", ("English", "Spanish", "Vietnamese", "Mandarin", "Korean"))
+    language_option = st.selectbox(
+    "🌐 Select Language:",
+    ("English", "Spanish", "Vietnamese", "Mandarin", "Korean"),
+    key="educator_language"
+)
     edu_tabs = st.tabs(["Water Fun Facts", "Water Quality FAQ", "Water Quality Quiz"])
 
     # --- Water Fun Facts ---
@@ -187,7 +191,12 @@ with main_tabs[2]:
         "Over $200": float('inf')
     }
 
-    language = st.selectbox("🌐 Select Language:", ["English", "Spanish", "Vietnamese", "Mandarin", "Korean"])
+    language = st.selectbox(
+    "🌐 Select Language:",
+    ["English", "Spanish", "Vietnamese", "Mandarin", "Korean"],
+    key="advisor_language"
+)
+
 
     zip_code = st.text_input("Enter your ZIP code:")
     issues = st.text_area("Describe any water issues you've noticed:")
