@@ -21,6 +21,15 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 
+# --- Logo and Title ---
+col1, col2 = st.columns([1, 8])
+with col1:
+    st.image("aquaed_logo.png", width=100)
+with col2:
+    st.markdown("<h1 style='color:#003049; padding-top: 20px;'>AquaED Water Quality Education</h1>", unsafe_allow_html=True)
+
+st.markdown("---")
+
 # --- Smooth fade-in animation ---
 st.markdown("""
     <style>
