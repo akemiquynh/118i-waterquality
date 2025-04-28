@@ -1,0 +1,7 @@
+[theme]
+base="light"
+primaryColor="#0077B6"         # Deep water blue
+backgroundColor="#E6F2F8"      # Very light blue background
+secondaryBackgroundColor="#FFFFFF"  # White cards/containers
+textColor="#003049"            # Dark navy text for good contrast
+font="sans serif"
