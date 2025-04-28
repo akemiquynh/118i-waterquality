@@ -11,6 +11,26 @@ from openai import OpenAI
 from streamlit_folium import st_folium
 import folium
 
+st.markdown("""
+    <style>
+    /* Smooth fade animation */
+    div[data-testid="stVerticalBlock"] > div {
+        animation: fadeEffect 0.7s;
+    }
+    @keyframes fadeEffect {
+        from {opacity: 0;}
+        to {opacity: 1;}
+    }
+
+    /* --- Make Tabs Fonts Larger --- */
+    button[data-baseweb="tab"] {
+        font-size: 30px !important; /* <-- adjust the number bigger or smaller */
+        font-weight: bold;
+        padding: 12px 20px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # --- Load environment variables ---
 load_dotenv()
 
