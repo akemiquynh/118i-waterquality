@@ -88,84 +88,58 @@ with main_tabs[0]:
 with main_tabs[1]:
     st.header("📚 AquaEducator")
 
+    client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
+
     language_option = st.selectbox(
-        "🌐 Select Language:", 
-        ("English", "Spanish", "Vietnamese", "Mandarin", "Korean"), 
+        "🌐 Select Language:",
+        ("English", "Spanish", "Vietnamese", "Mandarin", "Korean"),
         key="educator_language"
     )
-    edu_tabs = st.tabs(["Water Quality Quiz", "Water Quality FAQs"])
 
-     # --- Water Quality Quiz ---
+    edu_tabs = st.tabs(["🌊 Water Fun Fact", "📖 Water Quality FAQ", "💧 Water Quality Quiz"])
+
+    def get_completion(prompt, model="gpt-3.5-turbo"):
+        completion = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": "You are an expert on water quality."},
+                {"role": "user", "content": prompt}
+            ]
+        )
+        return completion.choices[0].message.content
+
+    def speak_text(text, voice="nova"):
+        try:
+            response = openai.audio.speech.create(
+                model="tts-1",
+                voice=voice,
+                input=text
+            )
+            with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
+                tmp.write(response.read())
+                return tmp.name
+        except Exception:
+            st.warning("TTS failed.")
+            return None
+
+    # --- 🌊 Water Fun Fact ---
     with edu_tabs[0]:
-        st.subheader("💧 Water Quality Quiz")
-        if "quiz_questions" not in st.session_state:
-            with open("questions.json", "r") as f:
-                quiz_data = json.load(f)
-            random.shuffle(quiz_data)
-            st.session_state.quiz_questions = quiz_data[:3]
-            st.session_state.quiz_answers = [None]*3
-            st.session_state.quiz_submitted = False
-
-        for idx, q in enumerate(st.session_state.quiz_questions):
-            st.subheader(f"Q{idx+1}: {q['question']}")
-            st.session_state.quiz_answers[idx] = st.radio(
-                "Select your answer:",
-                q["options"],
-                key=f"quiz_{idx}"
-            )
-
-        if st.button("✅ Submit Quiz"):
-            st.session_state.quiz_submitted = True
-            score = sum(
-                1 for idx, q in enumerate(st.session_state.quiz_questions)
-                if st.session_state.quiz_answers[idx] == q["answer"]
-            )
-            st.success(f"🎯 Your Score: {score} / 3")
-
-        if st.session_state.quiz_submitted and st.button("🔁 Restart Quiz"):
-            for key in list(st.session_state.keys()):
-                if key.startswith("quiz_") or key in ["quiz_questions", "quiz_answers", "quiz_submitted"]:
-                    del st.session_state[key]
-            st.rerun()
-
-    # --- Water Fun Facts ---
-    with edu_tabs[1]:
         st.subheader("🌊 Water Fun Fact")
+
         if "fun_fact" not in st.session_state:
             st.session_state.fun_fact = ""
             st.session_state.fun_fact_audio = None
 
-        def get_completion(prompt, model="gpt-3.5-turbo"):
-            completion = client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": "You are an expert on water quality."},
-                    {"role": "user", "content": prompt}
-                ]
-            )
-            return completion.choices[0].message.content
-
-        def speak_text(text, voice="nova"):
-            try:
-                response = openai.audio.speech.create(
-                    model="tts-1",
-                    voice=voice,
-                    input=text
-                )
-                with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
-                    tmp.write(response.read())
-                    return tmp.name
-            except Exception:
-                st.warning("TTS failed.")
-                return None
-
         with st.form("fun_fact_form"):
-            city_prompt = st.text_input("Enter your city for a local fun fact:")
+            city_prompt = st.text_input("Enter your city for a fun fact:")
             submitted = st.form_submit_button("🔍 Generate Fun Fact")
 
         if submitted and city_prompt:
-            prompt = f"Give a short, interesting water fun fact about {city_prompt}. Translate it into {language_option}. Start with 'Did you know?'"
-            fact = get_completion(prompt)
+            fact_prompt = (
+                f"Give one short, interesting fun fact about {city_prompt}'s water quality. "
+                f"Translate into {language_option}. Start it with 'Did you know?'"
+            )
+            fact = get_completion(fact_prompt)
             st.session_state.fun_fact = fact
             st.session_state.fun_fact_audio = speak_text(fact)
 
@@ -174,11 +148,14 @@ with main_tabs[1]:
             if st.button("🔈 Play Fun Fact"):
                 if st.session_state.fun_fact_audio:
                     st.audio(st.session_state.fun_fact_audio)
-                else:
-                    st.warning("Audio not available.")
 
-    # --- Water Quality FAQ ---
-        st.subheader("Water Quality FAQ")
+    # --- 📖 Water Quality FAQ ---
+    with edu_tabs[1]:
+        st.subheader("📖 Water Quality FAQs")
+
+        if "faq_answer" not in st.session_state:
+            st.session_state.faq_answer = ""
+            st.session_state.faq_audio = None
 
         questions = [
             "What is pH in water?",
@@ -190,24 +167,113 @@ with main_tabs[1]:
             "Where are the water treatment plants in Santa Clara County?"
         ]
 
-        faq_question = st.selectbox("Select a FAQ question:", questions)
+        selected_question = st.selectbox("Select a question:", questions)
 
-        if faq_question:
-            with st.spinner("Fetching answer..."):
+        if selected_question:
+            with st.spinner("Asking GPT..."):
                 try:
+                    faq_prompt = f"Answer '{selected_question}' with bullet points based on Santa Clara County. Translate into {language_option}."
                     response = client.chat.completions.create(
                         model="gpt-3.5-turbo",
                         messages=[
-                            {"role": "system", "content": "Expert in Santa Clara County water quality."},
-                            {"role": "user", "content": f"Answer '{faq_question}' and translate to {language_option}."}
+                            {"role": "system", "content": "Expert in Santa Clara County water quality and Valley Water services."},
+                            {"role": "user", "content": faq_prompt}
                         ]
                     )
                     answer = response.choices[0].message.content
-                    st.markdown(f"**Answer:** {answer}")
+                    st.session_state.faq_answer = answer
+                    st.session_state.faq_audio = speak_text(answer)
                 except Exception as e:
-                    st.error(f"Error: {str(e)}")
+                    st.error(f"Error: {e}")
 
-   
+        if st.session_state.faq_answer:
+            st.markdown(f"**Answer:** {st.session_state.faq_answer}")
+            if st.button("🔈 Play FAQ Answer"):
+                if st.session_state.faq_audio:
+                    st.audio(st.session_state.faq_audio)
+
+        st.markdown("""
+        🔗 **Learn more about water quality in Santa Clara County:**  
+        [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
+        """)
+
+    # --- 💧 Water Quality Quiz ---
+    with edu_tabs[2]:
+        st.subheader("💧 Water Quality Quiz")
+        MAX_QUESTIONS = 3
+
+        def load_questions(filepath="questions.json"):
+            with open(filepath, "r") as f:
+                return json.load(f)
+
+        def generate_explanation(question_text, correct_answer):
+            prompt = (
+                f"Question: {question_text}\n"
+                f"Correct Answer: {correct_answer}\n"
+                f"Explain why this is the correct answer. Translate to {language_option}."
+            )
+            try:
+                response = client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[
+                        {"role": "system", "content": "You are a water educator."},
+                        {"role": "user", "content": prompt}
+                    ]
+                )
+                return response.choices[0].message.content.strip()
+            except Exception as e:
+                return f"❌ Could not generate explanation: {e}"
+
+        if "all_questions" not in st.session_state:
+            st.session_state.all_questions = load_questions()
+            random.shuffle(st.session_state.all_questions)
+            st.session_state.all_questions = st.session_state.all_questions[:MAX_QUESTIONS]
+            st.session_state.answers = [None] * MAX_QUESTIONS
+            st.session_state.explanations = [""] * MAX_QUESTIONS
+            st.session_state.submitted_all = False
+
+        if st.button("✅ Submit All"):
+            st.session_state.submitted_all = True
+            st.rerun()
+
+        for idx, q in enumerate(st.session_state.all_questions):
+            st.subheader(f"Q{idx+1}: {q['question']}")
+            st.session_state.answers[idx] = st.radio(
+                f"Your answer for Q{idx+1}:", q["options"],
+                index=0 if not st.session_state.answers[idx] else q["options"].index(st.session_state.answers[idx]),
+                key=f"quiz_q_{idx}"
+            )
+
+            if st.session_state.submitted_all:
+                user_answer = st.session_state.answers[idx]
+                correct_answer = q["answer"]
+                if user_answer == correct_answer:
+                    st.success("✅ Correct!")
+                    st.session_state.explanations[idx] = generate_explanation(q["question"], correct_answer)
+                else:
+                    st.error(f"❌ Incorrect. Your answer: {user_answer}")
+                    st.session_state.explanations[idx] = f"The correct answer is **{correct_answer}**.\n\n" + generate_explanation(q["question"], correct_answer)
+
+                st.info(st.session_state.explanations[idx])
+
+                if st.button(f"🔈 Play Explanation for Q{idx+1}", key=f"tts_{idx}"):
+                    audio_path = speak_text(st.session_state.explanations[idx])
+                    if audio_path:
+                        st.audio(audio_path)
+
+        if st.session_state.submitted_all:
+            score = sum(
+                1 for idx, q in enumerate(st.session_state.all_questions)
+                if st.session_state.answers[idx] == q["answer"]
+            )
+            st.success(f"🎉 Your Final Score: {score} / {MAX_QUESTIONS}")
+
+            if st.button("🔁 Restart Quiz"):
+                for key in list(st.session_state.keys()):
+                    if key.startswith("quiz_q_") or key in ["all_questions", "answers", "explanations", "submitted_all"]:
+                        del st.session_state[key]
+                st.rerun()
+
 # ===============================
 # 💧 AquaEdvisor
 with main_tabs[2]:
