@@ -65,7 +65,7 @@ st.markdown("---")
 # --- AquaEducator Actual App Content Starts ---
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-tab1, tab2 = st.tabs([ "Water Quality FAQ", "Water Quality Quiz"])
+tab1, tab2 = st.tabs([ "Water Quality FAQs", "Water Quality Quiz"])
 
 # Language Options
 option = st.selectbox(
