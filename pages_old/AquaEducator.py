@@ -134,6 +134,7 @@ with tab2:
         "How can I measure water quality at home?",
         "Why is chlorine added to water?",
         "What are nitrates and why are they bad?",
+        "What do the abbreviations on a water quality report mean?",
         "How is my water cleaned?",
         "What are safe levels of lead in water?",
         "Where are the water treatment plants in Santa Clara County?"
