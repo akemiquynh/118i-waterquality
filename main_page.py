@@ -93,10 +93,43 @@ with main_tabs[1]:
         ("English", "Spanish", "Vietnamese", "Mandarin", "Korean"), 
         key="educator_language"
     )
-    edu_tabs = st.tabs(["Water Fun Facts", "Water Quality FAQ", "Water Quality Quiz"])
+    edu_tabs = st.tabs(["Water Quality Quiz", "Water Quality FAQs"])
+
+     # --- Water Quality Quiz ---
+    with edu_tabs[0]:
+        st.subheader("💧 Water Quality Quiz")
+        if "quiz_questions" not in st.session_state:
+            with open("questions.json", "r") as f:
+                quiz_data = json.load(f)
+            random.shuffle(quiz_data)
+            st.session_state.quiz_questions = quiz_data[:3]
+            st.session_state.quiz_answers = [None]*3
+            st.session_state.quiz_submitted = False
+
+        for idx, q in enumerate(st.session_state.quiz_questions):
+            st.subheader(f"Q{idx+1}: {q['question']}")
+            st.session_state.quiz_answers[idx] = st.radio(
+                "Select your answer:",
+                q["options"],
+                key=f"quiz_{idx}"
+            )
+
+        if st.button("✅ Submit Quiz"):
+            st.session_state.quiz_submitted = True
+            score = sum(
+                1 for idx, q in enumerate(st.session_state.quiz_questions)
+                if st.session_state.quiz_answers[idx] == q["answer"]
+            )
+            st.success(f"🎯 Your Score: {score} / 3")
+
+        if st.session_state.quiz_submitted and st.button("🔁 Restart Quiz"):
+            for key in list(st.session_state.keys()):
+                if key.startswith("quiz_") or key in ["quiz_questions", "quiz_answers", "quiz_submitted"]:
+                    del st.session_state[key]
+            st.rerun()
 
     # --- Water Fun Facts ---
-    with edu_tabs[0]:
+    with edu_tabs[1]:
         st.subheader("🌊 Water Fun Fact")
         if "fun_fact" not in st.session_state:
             st.session_state.fun_fact = ""
@@ -145,7 +178,6 @@ with main_tabs[1]:
                     st.warning("Audio not available.")
 
     # --- Water Quality FAQ ---
-    with edu_tabs[1]:
         st.subheader("Water Quality FAQ")
 
         questions = [
@@ -155,7 +187,7 @@ with main_tabs[1]:
             "What are nitrates and why are they bad?",
             "How is my water cleaned?",
             "What are safe levels of lead in water?",
-            "Where are the water treatment plants near me?"
+            "Where are the water treatment plants in Santa Clara County?"
         ]
 
         faq_question = st.selectbox("Select a FAQ question:", questions)
@@ -175,38 +207,7 @@ with main_tabs[1]:
                 except Exception as e:
                     st.error(f"Error: {str(e)}")
 
-    # --- Water Quality Quiz ---
-    with edu_tabs[2]:
-        st.subheader("💧 Water Quality Quiz")
-        if "quiz_questions" not in st.session_state:
-            with open("questions.json", "r") as f:
-                quiz_data = json.load(f)
-            random.shuffle(quiz_data)
-            st.session_state.quiz_questions = quiz_data[:3]
-            st.session_state.quiz_answers = [None]*3
-            st.session_state.quiz_submitted = False
-
-        for idx, q in enumerate(st.session_state.quiz_questions):
-            st.subheader(f"Q{idx+1}: {q['question']}")
-            st.session_state.quiz_answers[idx] = st.radio(
-                "Select your answer:",
-                q["options"],
-                key=f"quiz_{idx}"
-            )
-
-        if st.button("✅ Submit Quiz"):
-            st.session_state.quiz_submitted = True
-            score = sum(
-                1 for idx, q in enumerate(st.session_state.quiz_questions)
-                if st.session_state.quiz_answers[idx] == q["answer"]
-            )
-            st.success(f"🎯 Your Score: {score} / 3")
-
-        if st.session_state.quiz_submitted and st.button("🔁 Restart Quiz"):
-            for key in list(st.session_state.keys()):
-                if key.startswith("quiz_") or key in ["quiz_questions", "quiz_answers", "quiz_submitted"]:
-                    del st.session_state[key]
-            st.rerun()
+   
 # ===============================
 # 💧 AquaEdvisor
 with main_tabs[2]:
