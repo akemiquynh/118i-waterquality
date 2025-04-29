@@ -223,26 +223,49 @@ with tab3:
                     {"role": "system", "content": "You are a water educator."},
                     {"role": "user", "content": prompt}
                 ],
-                max_tokens=100,
+                max_tokens=150,
                 temperature=0.5
             )
             return response.choices[0].message.content.strip()
         except Exception as e:
             return f"❌ Could not generate explanation: {e}"
 
+    # Initialize quiz session states
     if "all_questions" not in st.session_state:
         st.session_state.all_questions = load_questions()
         random.shuffle(st.session_state.all_questions)
         st.session_state.all_questions = st.session_state.all_questions[:MAX_QUESTIONS]
         st.session_state.answers = [None] * MAX_QUESTIONS
-        st.session_state.explanations = [""] * MAX_QUESTIONS
         st.session_state.submitted_all = False
+        st.session_state.explanations = [""] * MAX_QUESTIONS
+        st.session_state.generated_explanations = False
 
     st.markdown("""
     🔗 **Learn more about water quality in Santa Clara County:**  
     [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
     """)
 
+    # Submit button placed BEFORE the questions
+    if st.button("✅ Submit All"):
+        st.session_state.submitted_all = True
+        st.session_state.generated_explanations = False
+        st.rerun()
+
+    # Generate explanations ONCE after submission
+    if st.session_state.submitted_all and not st.session_state.generated_explanations:
+        for idx, q in enumerate(st.session_state.all_questions):
+            correct_answer = q["answer"]
+            user_answer = st.session_state.answers[idx]
+            explanation = generate_explanation(q["question"], correct_answer)
+
+            if user_answer == correct_answer:
+                st.session_state.explanations[idx] = explanation
+            else:
+                st.session_state.explanations[idx] = f"The correct answer is **{correct_answer}**.\n\n" + explanation
+
+        st.session_state.generated_explanations = True
+
+    # Display questions
     for idx, q in enumerate(st.session_state.all_questions):
         st.subheader(f"Q{idx + 1}: {q['question']}")
         st.session_state.answers[idx] = st.radio(
@@ -251,16 +274,16 @@ with tab3:
             key=f"q_{idx}"
         )
 
+        # Show feedback and explanation if submitted
         if st.session_state.submitted_all:
             user_answer = st.session_state.answers[idx]
             correct_answer = q["answer"]
+
             if user_answer == correct_answer:
                 st.success("✅ Correct!")
-                st.session_state.explanations[idx] = generate_explanation(q["question"], correct_answer)
             else:
                 st.error(f"❌ Incorrect. Your answer: {user_answer}")
-                st.session_state.explanations[idx] = f"The correct answer is **{correct_answer}**.\n\n" + generate_explanation(q["question"], correct_answer)
-            
+
             st.info(st.session_state.explanations[idx])
 
             if st.button(f"🔈 Play Explanation for Q{idx + 1}", key=f"tts_{idx}"):
@@ -268,10 +291,7 @@ with tab3:
                 if audio_path:
                     st.audio(audio_path)
 
-    if st.button("✅ Submit All"):
-        st.session_state.submitted_all = True
-        st.rerun()
-
+    # After all questions, show final score
     if st.session_state.submitted_all:
         score = sum(
             1 for idx, q in enumerate(st.session_state.all_questions)
@@ -283,3 +303,4 @@ with tab3:
             for key in list(st.session_state.keys()):
                 del st.session_state[key]
             st.rerun()
+
