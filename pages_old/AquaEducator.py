@@ -62,16 +62,41 @@ with col2:
 
 st.markdown("---")
 
-# --- AquaEducator Actual App Content Starts ---
+# --- GLOBAL FUNCTIONS ---
 client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
-tab1, tab2, tab3 = st.tabs(["Water Fun Facts", "Water Quality FAQ", "Water Quality Quiz"])
+def speak_text(text, voice="nova"):
+    try:
+        response = openai.audio.speech.create(
+            model="tts-1",
+            voice=voice,
+            input=text
+        )
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
+            tmp.write(response.read())
+            return tmp.name
+    except Exception:
+        st.warning("TTS failed.")
+        return None
 
-# Language Options
+def get_completion(prompt, model="gpt-3.5-turbo"):
+    completion = client.chat.completions.create(
+        model=model,
+        messages=[
+            {"role": "system", "content": "You are an expert on water quality."},
+            {"role": "user", "content": prompt},
+        ]
+    )
+    return completion.choices[0].message.content
+
+# --- Language Options ---
 option = st.selectbox(
     "Select language", ("English", "Spanish", "Vietnamese", "Mandarin", "Korean")
 )
 st.write("You selected:", option)
+
+# --- TABS ---
+tab1, tab2, tab3 = st.tabs(["Water Fun Facts", "Water Quality FAQ", "Water Quality Quiz"])
 
 # --- Fun Facts Tab ---
 with tab1:
@@ -80,30 +105,6 @@ with tab1:
     if "fun_fact" not in st.session_state:
         st.session_state.fun_fact = ""
         st.session_state.fun_fact_audio = None
-
-    def get_completion(prompt, model="gpt-3.5-turbo"):
-        completion = client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": "You are an expert on water quality."},
-                {"role": "user", "content": prompt},
-            ]
-        )
-        return completion.choices[0].message.content
-
-    def speak_text(text, voice="nova"):
-        try:
-            response = openai.audio.speech.create(
-                model="tts-1",
-                voice=voice,
-                input=text
-            )
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
-                tmp.write(response.read())
-                return tmp.name
-        except Exception:
-            st.warning("TTS failed.")
-            return None
 
     with st.form(key="chat"):
         prompt = st.text_input("Want a local fact? Enter your city:")
@@ -141,20 +142,6 @@ with tab2:
     ]
 
     st.title("Water Quality FAQs")
-
-    def speak_text(text, voice="nova"):
-        try:
-            response = openai.audio.speech.create(
-                model="tts-1",
-                voice=voice,
-                input=text
-            )
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as tmp:
-                tmp.write(response.read())
-                return tmp.name
-        except Exception:
-            st.warning("TTS failed.")
-            return None
 
     if "faq_answer" not in st.session_state:
         st.session_state.faq_answer = ""
@@ -238,21 +225,15 @@ with tab3:
         st.session_state.answers = [None] * MAX_QUESTIONS
         st.session_state.submitted_all = False
         st.session_state.explanations = [""] * MAX_QUESTIONS
-        st.session_state.generated_explanations = False
 
     st.markdown("""
     🔗 **Learn more about water quality in Santa Clara County:**  
     [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
     """)
 
-    # Submit button placed BEFORE the questions
+    # Submit button
     if st.button("✅ Submit All"):
         st.session_state.submitted_all = True
-        st.session_state.generated_explanations = False
-        st.rerun()
-
-    # Generate explanations ONCE after submission
-    if st.session_state.submitted_all and not st.session_state.generated_explanations:
         for idx, q in enumerate(st.session_state.all_questions):
             correct_answer = q["answer"]
             user_answer = st.session_state.answers[idx]
@@ -262,8 +243,7 @@ with tab3:
                 st.session_state.explanations[idx] = explanation
             else:
                 st.session_state.explanations[idx] = f"The correct answer is **{correct_answer}**.\n\n" + explanation
-
-        st.session_state.generated_explanations = True
+        st.rerun()
 
     # Display questions
     for idx, q in enumerate(st.session_state.all_questions):
@@ -274,7 +254,6 @@ with tab3:
             key=f"q_{idx}"
         )
 
-        # Show feedback and explanation if submitted
         if st.session_state.submitted_all:
             user_answer = st.session_state.answers[idx]
             correct_answer = q["answer"]
@@ -291,7 +270,7 @@ with tab3:
                 if audio_path:
                     st.audio(audio_path)
 
-    # After all questions, show final score
+    # Final score
     if st.session_state.submitted_all:
         score = sum(
             1 for idx, q in enumerate(st.session_state.all_questions)
@@ -301,6 +280,9 @@ with tab3:
 
         if st.button("🔁 Restart Quiz"):
             for key in list(st.session_state.keys()):
+                del st.session_state[key]
+            st.rerun()
+
                 del st.session_state[key]
             st.rerun()
 
