@@ -82,10 +82,14 @@ main_tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺
 with main_tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
-    st.markdown("### 🌟 What You Can Do with AquaED")
-
     st.markdown("""
+### 🌟 What You Can Do with AquaED
+""")
+
+st.markdown(
+    '''
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+
         <div style="flex: 1 1 300px; max-width: 400px;">
             <h4>🏠 Explore Your Water</h4>
             <p>Use <strong>AquaMap</strong> to view water quality scores, EPA compliance, and contaminants in your city.</p>
@@ -107,8 +111,11 @@ with main_tabs[0]:
             <h4>🌐 Choose Your Language</h4>
             <p>Use the app in <strong>English, Spanish, Mandarin, Vietnamese, or Korean</strong> for wider accessibility.</p>
         </div>
+
     </div>
-    """, unsafe_allow_html=True)
+    ''',
+    unsafe_allow_html=True
+)
 
 # ===============================
 # 📚 AquaEducator
