@@ -83,6 +83,32 @@ with main_tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
 
+    st.markdown("---")  # Optional visual divider
+
+    st.markdown("### 🌟 What You Can Do with AquaED")
+
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("#### 🏠 Explore Your Water")
+        st.markdown("Use **AquaMap** to view water quality scores, EPA compliance, and contaminants in your city.")
+
+        st.markdown("#### 📚 Learn as You Go")
+        st.markdown("Fun facts, local insights, and **FAQs** help you understand what's in your water.")
+
+        st.markdown("#### 🎯 Quiz Your Knowledge")
+        st.markdown("Take a short **interactive quiz** and get instant feedback + explanations.")
+
+    with col2:
+        st.markdown("#### 💧 Get Filter Advice")
+        st.markdown("Describe your water issues and budget — our AI suggests **personalized filter options.**")
+
+        st.markdown("#### 📄 Download a Report")
+        st.markdown("Save a clean, printable **PDF report** of your results and recommendations.")
+
+        st.markdown("#### 🌐 Choose Your Language")
+        st.markdown("Use the app in **English, Spanish, Mandarin, Vietnamese, or Korean** for wider accessibility.")
+
 # ===============================
 # 📚 AquaEducator
 with main_tabs[1]:
