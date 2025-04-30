@@ -212,7 +212,11 @@ with main_tabs[1]:
         if selected_question:
             with st.spinner("Fetching answers..."):
                 try:
-                    faq_prompt = f"Answer '{selected_question}' with bullet points based on Santa Clara County. Translate into {language_option}."
+                    translation_note = f"Translate into {language_option}." if language_option != "English" else ""
+                    faq_prompt = (
+                        f"Answer '{selected_question}' with bullet points based on Santa Clara County. {translation_note}."
+                    )
+                    
                     response = client.chat.completions.create(
                         model="gpt-3.5-turbo",
                         messages=[
