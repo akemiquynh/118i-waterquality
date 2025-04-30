@@ -85,7 +85,7 @@ with main_tabs[0]:
     
 st.markdown("### 🌟 What You Can Do with AquaED")
 
-st.markdown('''
+st.markdown("""
 <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
 
     <div style="flex: 1 1 300px; max-width: 400px;">
