@@ -27,7 +27,7 @@ def generate_water_image():
     ]
     chosen_prompt = random.choice(prompts)
 
-    response = client.images.generate(
+    response = client.images.create(
         prompt=chosen_prompt,
         n=1,
         size="200x200"
