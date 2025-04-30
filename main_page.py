@@ -122,7 +122,7 @@ with main_tabs[1]:
             st.warning("TTS failed.")
             return None
 
-    # --- 🌊 Water Fun Fact ---
+    # --- Facts ---
     with edu_tabs[0]:
         st.subheader("🌊 Water Fun Fact")
 
@@ -149,8 +149,7 @@ with main_tabs[1]:
                 if st.session_state.fun_fact_audio:
                     st.audio(st.session_state.fun_fact_audio)
 
-    # --- 📖 Water Quality FAQ ---
-    with edu_tabs[1]:
+    # --- 📖 Water Quality FAQ --
         st.subheader("📖 Water Quality FAQs")
 
         if "faq_answer" not in st.session_state:
@@ -170,7 +169,7 @@ with main_tabs[1]:
         selected_question = st.selectbox("Select a question:", questions)
 
         if selected_question:
-            with st.spinner("Asking GPT..."):
+            with st.spinner("Fetching answers..."):
                 try:
                     faq_prompt = f"Answer '{selected_question}' with bullet points based on Santa Clara County. Translate into {language_option}."
                     response = client.chat.completions.create(
@@ -198,7 +197,7 @@ with main_tabs[1]:
         """)
 
     # --- 💧 Water Quality Quiz ---
-    with edu_tabs[2]:
+    with edu_tabs[1]:
         st.subheader("💧 Water Quality Quiz")
         MAX_QUESTIONS = 3
 
