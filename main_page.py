@@ -18,6 +18,17 @@ OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 GOOGLEMAPS_API_KEY = st.secrets["GOOGLEMAPS_API_KEY"]
 client = OpenAI(api_key=OPENAI_API_KEY)
 
+@st.cache_data
+def get_random_water_image():
+    water_images = [
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",  # ocean wave
+        "https://images.unsplash.com/photo-1528825871115-3581a5387919",  # stream
+        "https://images.unsplash.com/photo-1583224461797-8b90d72b3c7f",  # child drinking water
+        "https://images.unsplash.com/photo-1620231522637-e6f5406f6c5c",  # water ripple
+        "https://images.unsplash.com/photo-1484312152040-4b35366d3a06"   # glass of water
+    ]
+    return random.choice(water_images)
+
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
 
@@ -83,6 +94,10 @@ with main_tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
 
+    # Show rotating water-themed image
+    image_url = get_random_water_image()
+    st.image(image_url, caption="💧 Clean water, clean future", use_container_width=True)
+    
     st.markdown("---")  # Optional visual divider
 
     st.markdown("### 🌟 What You Can Do with AquaED")
