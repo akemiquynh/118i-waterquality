@@ -85,29 +85,35 @@ with main_tabs[0]:
 
     st.markdown("---")  # Optional visual divider
 
-    st.markdown("### 🌟 What You Can Do with AquaED")
+    st.markdown("""
+### 🌟 What You Can Do with AquaED
 
-    col1, col2 = st.columns(2)
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
 
-    with col1:
-        st.markdown("#### 🏠 Explore Your Water")
-        st.markdown("Use **AquaMap** to view water quality scores, EPA compliance, and contaminants in your city.")
+    <div style="flex: 1 1 300px; max-width: 400px;">
+        <h4>🏠 Explore Your Water</h4>
+        <p>Use <strong>AquaMap</strong> to view water quality scores, EPA compliance, and contaminants in your city.</p>
 
-        st.markdown("#### 📚 Learn as You Go")
-        st.markdown("Fun facts, local insights, and **FAQs** help you understand what's in your water.")
+        <h4>📚 Learn as You Go</h4>
+        <p>Fun facts, local insights, and <strong>FAQs</strong> help you understand what's in your water.</p>
 
-        st.markdown("#### 🎯 Quiz Your Knowledge")
-        st.markdown("Take a short **interactive quiz** and get instant feedback + explanations.")
+        <h4>🎯 Quiz Your Knowledge</h4>
+        <p>Take a short <strong>interactive quiz</strong> and get instant feedback + explanations.</p>
+    </div>
 
-    with col2:
-        st.markdown("#### 💧 Get Filter Advice")
-        st.markdown("Describe your water issues and budget — our AI suggests **personalized filter options.**")
+    <div style="flex: 1 1 300px; max-width: 400px;">
+        <h4>💧 Get Filter Advice</h4>
+        <p>Describe your water issues and budget — our AI suggests <strong>personalized filter options</strong>.</p>
 
-        st.markdown("#### 📄 Download a Report")
-        st.markdown("Save a clean, printable **PDF report** of your results and recommendations.")
+        <h4>📄 Download a Report</h4>
+        <p>Save a clean, printable <strong>PDF report</strong> of your results and recommendations.</p>
 
-        st.markdown("#### 🌐 Choose Your Language")
-        st.markdown("Use the app in **English, Spanish, Mandarin, Vietnamese, or Korean** for wider accessibility.")
+        <h4>🌐 Choose Your Language</h4>
+        <p>Use the app in <strong>English, Spanish, Mandarin, Vietnamese, or Korean</strong> for wider accessibility.</p>
+    </div>
+
+</div>
+""", unsafe_allow_html=True)
 
 # ===============================
 # 📚 AquaEducator
