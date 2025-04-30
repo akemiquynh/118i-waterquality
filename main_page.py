@@ -27,12 +27,12 @@ def generate_water_image():
     ]
     chosen_prompt = random.choice(prompts)
 
-    response = client.images.create(
+    response = openai.Image.create(
         prompt=chosen_prompt,
         n=1,
         size="512x512"
     )
-    return response.data[0].url, chosen_prompt
+    return response['data'][0]['url'], chosen_prompt
 
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
