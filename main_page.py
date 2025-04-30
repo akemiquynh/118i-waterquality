@@ -82,37 +82,32 @@ main_tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺
 with main_tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
-    
-st.markdown("### 🌟 What You Can Do with AquaED")
 
-st.markdown("""
-<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+    st.markdown("---")  # Optional visual divider
 
-    <div style="flex: 1 1 300px; max-width: 400px;">
-        <h4>🏠 Explore Your Water</h4>
-        <p>Use <strong>AquaMap</strong> to view water quality scores, EPA compliance, and contaminants in your city.</p>
+    st.markdown("### 🌟 What You Can Do with AquaED")
 
-        <h4>📚 Learn as You Go</h4>
-        <p>Fun facts, local insights, and <strong>FAQs</strong> help you understand what's in your water.</p>
+    col1, col2 = st.columns(2)
 
-        <h4>🎯 Quiz Your Knowledge</h4>
-        <p>Take a short <strong>interactive quiz</strong> and get instant feedback + explanations.</p>
-    </div>
+    with col1:
+        st.markdown("#### 🏠 Explore Your Water")
+        st.markdown("Use **AquaMap** to view water quality scores, EPA compliance, and contaminants in your city.")
 
-    <div style="flex: 1 1 300px; max-width: 400px;">
-        <h4>💧 Get Filter Advice</h4>
-        <p>Describe your water issues and budget — our AI suggests <strong>personalized filter options</strong>.</p>
+        st.markdown("#### 📚 Learn as You Go")
+        st.markdown("Fun facts, local insights, and **FAQs** help you understand what's in your water.")
 
-        <h4>📄 Download a Report</h4>
-        <p>Save a clean, printable <strong>PDF report</strong> of your results and recommendations.</p>
+        st.markdown("#### 🎯 Quiz Your Knowledge")
+        st.markdown("Take a short **interactive quiz** and get instant feedback + explanations.")
 
-        <h4>🌐 Choose Your Language</h4>
-        <p>Use the app in <strong>English, Spanish, Mandarin, Vietnamese, or Korean</strong> for wider accessibility.</p>
-    </div>
+    with col2:
+        st.markdown("#### 💧 Get Filter Advice")
+        st.markdown("Describe your water issues and budget — our AI suggests **personalized filter options.**")
 
-</div>
-''', unsafe_allow_html=True)
+        st.markdown("#### 📄 Download a Report")
+        st.markdown("Save a clean, printable **PDF report** of your results and recommendations.")
 
+        st.markdown("#### 🌐 Choose Your Language")
+        st.markdown("Use the app in **English, Spanish, Mandarin, Vietnamese, or Korean** for wider accessibility.")
 
 # ===============================
 # 📚 AquaEducator
@@ -222,7 +217,10 @@ with main_tabs[1]:
                 if st.session_state.faq_audio:
                     st.audio(st.session_state.faq_audio)
 
-        st.markdown("🔗 **Learn more about water quality in Santa Clara County:**  \n[Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)")
+        st.markdown("""
+        🔗 **Learn more about water quality in Santa Clara County:**  
+        [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
+        """)
 
     # --- 💧 Water Quality Quiz ---
     with edu_tabs[1]:
@@ -453,9 +451,9 @@ with main_tabs[3]:
             st.write(f"{metro} (ZIP code {zip_code}) has a water quality score of {score}, which {epa_status} meet EPA standards. Some common contaminants in {metro}'s water include: {contaminants}.")
 
     st.markdown("""
-Please select your location on the map and click "Submit Location" to learn more about water quality in your city.  
-For large cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
-""")
+    Please select your location on the map and click "Submit Location" to learn more about water quality in your city. 
+    For large cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
+    """)
 
     map = folium.Map(location=[37.6110, -122.2050], zoom_start=10)
     map.add_child(folium.LatLngPopup())
