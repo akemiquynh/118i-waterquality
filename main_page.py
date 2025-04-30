@@ -453,9 +453,9 @@ with main_tabs[3]:
             st.write(f"{metro} (ZIP code {zip_code}) has a water quality score of {score}, which {epa_status} meet EPA standards. Some common contaminants in {metro}'s water include: {contaminants}.")
 
     st.markdown("""
-    Please select your location on the map and click "Submit Location" to learn more about water quality in your city. 
-    For large cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
-    """)
+Please select your location on the map and click "Submit Location" to learn more about water quality in your city.  
+For large cities selected within the San Francisco Bay Area, additional information will be provided about water quality scores and common contaminants.
+""")
 
     map = folium.Map(location=[37.6110, -122.2050], zoom_start=10)
     map.add_child(folium.LatLngPopup())
