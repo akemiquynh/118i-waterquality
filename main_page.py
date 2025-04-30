@@ -18,7 +18,6 @@ OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 GOOGLEMAPS_API_KEY = st.secrets["GOOGLEMAPS_API_KEY"]
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-@st.cache_data
 def get_random_water_image():
     water_images = [
         "https://i.imgur.com/sfixLBQ.png",  # pouring water
