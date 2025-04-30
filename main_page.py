@@ -83,8 +83,6 @@ with main_tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
 
-    st.markdown("---")  # Optional visual divider
-
 st.markdown("""
 ### 🌟 What You Can Do with AquaED
 """)
