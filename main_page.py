@@ -83,39 +83,36 @@ with main_tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
     
-    st.markdown("""
-### 🌟 What You Can Do with AquaED
-""")
-st.markdown(
-    '''
-    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
+st.markdown("### 🌟 What You Can Do with AquaED")
 
-        <div style="flex: 1 1 300px; max-width: 400px;">
-            <h4>🏠 Explore Your Water</h4>
-            <p>Use <strong>AquaMap</strong> to view water quality scores, EPA compliance, and contaminants in your city.</p>
+st.markdown('''
+<div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
 
-            <h4>📚 Learn as You Go</h4>
-            <p>Fun facts, local insights, and <strong>FAQs</strong> help you understand what's in your water.</p>
+    <div style="flex: 1 1 300px; max-width: 400px;">
+        <h4>🏠 Explore Your Water</h4>
+        <p>Use <strong>AquaMap</strong> to view water quality scores, EPA compliance, and contaminants in your city.</p>
 
-            <h4>🎯 Quiz Your Knowledge</h4>
-            <p>Take a short <strong>interactive quiz</strong> and get instant feedback + explanations.</p>
-        </div>
+        <h4>📚 Learn as You Go</h4>
+        <p>Fun facts, local insights, and <strong>FAQs</strong> help you understand what's in your water.</p>
 
-        <div style="flex: 1 1 300px; max-width: 400px;">
-            <h4>💧 Get Filter Advice</h4>
-            <p>Describe your water issues and budget — our AI suggests <strong>personalized filter options</strong>.</p>
-
-            <h4>📄 Download a Report</h4>
-            <p>Save a clean, printable <strong>PDF report</strong> of your results and recommendations.</p>
-
-            <h4>🌐 Choose Your Language</h4>
-            <p>Use the app in <strong>English, Spanish, Mandarin, Vietnamese, or Korean</strong> for wider accessibility.</p>
-        </div>
-
+        <h4>🎯 Quiz Your Knowledge</h4>
+        <p>Take a short <strong>interactive quiz</strong> and get instant feedback + explanations.</p>
     </div>
-    ''',
-    unsafe_allow_html=True
-)
+
+    <div style="flex: 1 1 300px; max-width: 400px;">
+        <h4>💧 Get Filter Advice</h4>
+        <p>Describe your water issues and budget — our AI suggests <strong>personalized filter options</strong>.</p>
+
+        <h4>📄 Download a Report</h4>
+        <p>Save a clean, printable <strong>PDF report</strong> of your results and recommendations.</p>
+
+        <h4>🌐 Choose Your Language</h4>
+        <p>Use the app in <strong>English, Spanish, Mandarin, Vietnamese, or Korean</strong> for wider accessibility.</p>
+    </div>
+
+</div>
+''', unsafe_allow_html=True)
+
 
 # ===============================
 # 📚 AquaEducator
