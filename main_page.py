@@ -190,61 +190,52 @@ with main_tabs[1]:
                 if st.session_state.fun_fact_audio:
                     st.audio(st.session_state.fun_fact_audio)
 
-# --- 📖 Water Quality FAQs ---
-st.subheader("📖 Water Quality FAQs")
+    # --- 📖 Water Quality FAQ --
+        st.subheader("📖 Water Quality FAQs")
 
-if "faq_answer" not in st.session_state:
-    st.session_state.faq_answer = ""
-    st.session_state.faq_audio = None
+        if "faq_answer" not in st.session_state:
+            st.session_state.faq_answer = ""
+            st.session_state.faq_audio = None
 
-questions = [
-    "What is pH in water?",
-    "How can I measure water quality at home?",
-    "Why is chlorine added to water?",
-    "What are nitrates and why are they bad?",
-    "How is my water cleaned?",
-    "What are safe levels of lead in water?",
-    "Where are the water treatment plants in Santa Clara County?"
-]
+        questions = [
+            "What is pH in water?",
+            "How can I measure water quality at home?",
+            "Why is chlorine added to water?",
+            "What are nitrates and why are they bad?",
+            "How is my water cleaned?",
+            "What are safe levels of lead in water?",
+            "Where are the water treatment plants in Santa Clara County?"
+        ]
 
-selected_question = st.selectbox("Select a question:", questions)
+        selected_question = st.selectbox("Select a question:", questions)
 
-if st.button("🔍 Get Answer"):
-    with st.spinner("Fetching answer..."):
-        try:
-            # Only translate if a non-English language is selected
-            translation_note = f"Translate into {language_option}." if language_option != "English" else ""
+        if selected_question:
+            with st.spinner("Fetching answers..."):
+                try:
+                    faq_prompt = f"Answer '{selected_question}' with bullet points based on Santa Clara County. Translate into {language_option}."
+                    response = client.chat.completions.create(
+                        model="gpt-3.5-turbo",
+                        messages=[
+                            {"role": "system", "content": "Expert in Santa Clara County water quality and Valley Water services."},
+                            {"role": "user", "content": faq_prompt}
+                        ]
+                    )
+                    answer = response.choices[0].message.content
+                    st.session_state.faq_answer = answer
+                    st.session_state.faq_audio = speak_text(answer)
+                except Exception as e:
+                    st.error(f"Error: {e}")
 
-            faq_prompt = (
-                f"Answer '{selected_question}' with bullet points based on Santa Clara County. {translation_note}"
-            )
+        if st.session_state.faq_answer:
+            st.markdown(f"**Answer:** {st.session_state.faq_answer}")
+            if st.button("🔈 Play FAQ Answer"):
+                if st.session_state.faq_audio:
+                    st.audio(st.session_state.faq_audio)
 
-            response = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[
-                    {"role": "system", "content": "Expert in Santa Clara County water quality and Valley Water services."},
-                    {"role": "user", "content": faq_prompt}
-                ]
-            )
-            answer = response.choices[0].message.content
-            st.session_state.faq_answer = answer
-            st.session_state.faq_audio = speak_text(answer)
-
-        except Exception as e:
-            st.error(f"Error: {e}")
-
-# Show the answer and optional TTS if it's been generated
-if st.session_state.faq_answer:
-    st.markdown(f"**Answer:** {st.session_state.faq_answer}")
-    if st.button("🔈 Play FAQ Answer"):
-        if st.session_state.faq_audio:
-            st.audio(st.session_state.faq_audio)
-
-st.markdown("""
-🔗 **Learn more about water quality in Santa Clara County:**  
-[Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
-""")
-
+        st.markdown("""
+        🔗 **Learn more about water quality in Santa Clara County:**  
+        [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
+        """)
 
     # --- 💧 Water Quality Quiz ---
     with edu_tabs[1]:
