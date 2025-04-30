@@ -25,6 +25,7 @@ def get_random_water_image():
         "https://i.imgur.com/EFO5i7u.png",  # faucet
         "https://i.imgur.com/cQ17Ktm.png",  # flower on water
         "https://i.imgur.com/JwXE4Iw.png"   # child drinking water
+        "https://i.imgur.com/WPmxxfk.png"   # child drinking water
     ]
     return random.choice(water_images)
 
