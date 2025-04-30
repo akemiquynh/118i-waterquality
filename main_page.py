@@ -82,10 +82,10 @@ main_tabs = st.tabs(["🏠 Home", "📚 AquaEducator", "💧 AquaEdvisor", "🗺
 with main_tabs[0]:
     st.header("🏠 Welcome to AquaED!")
     st.write("Explore water quality education, get personalized filter advice, and discover your local water conditions!")
+    
     st.markdown("""
 ### 🌟 What You Can Do with AquaED
 """)
-
 st.markdown(
     '''
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 40px;">
