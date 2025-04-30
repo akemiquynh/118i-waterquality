@@ -21,18 +21,18 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 @st.cache_data(show_spinner="Generating image...")
 def generate_water_image():
     prompts = [
-        "A peaceful stream of clean water flowing through a natural forest, watercolor style",
-        "A glowing droplet of water reflecting a city skyline at sunset, concept art",
-        "A family filtering and drinking water together in their home kitchen, realistic style"
+        "A peaceful stream of clean water flowing through a natural forest, watercolor style",  # calming
+        "A glowing droplet of water reflecting a city skyline at sunset, concept art",          # metaphorical
+        "A family filtering and drinking water together in their home kitchen, realistic style" # domestic
     ]
     chosen_prompt = random.choice(prompts)
 
-    response = openai.Image.create(
+    response = client.images.generate(
         prompt=chosen_prompt,
         n=1,
         size="512x512"
     )
-    return response['data'][0]['url'], chosen_prompt
+    return response.data[0].url, chosen_prompt
 
 # --- Page config ---
 st.set_page_config(page_title="AquaED", page_icon="💧", layout="wide")
@@ -101,8 +101,7 @@ with main_tabs[0]:
 
 # Generate and display AI image
     image_url, used_prompt = generate_water_image()
-    st.image(image_url, caption="💧 AI-Generated Scene: " + used_prompt, use_container_width=True)
-
+    st.image(image_url, caption="💧 AI-Generated Scene: " + used_prompt, use_column_width=True)
     
     st.markdown("---")  # Optional visual divider
 
