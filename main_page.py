@@ -96,7 +96,7 @@ with main_tabs[1]:
         key="educator_language"
     )
 
-    edu_tabs = st.tabs(["🌊 Water Fun Fact", "📖 Water Quality FAQ", "💧 Water Quality Quiz"])
+    edu_tabs = st.tabs(["🌊 Water FAQs", "💧 Water Quality Quiz"])
 
     def get_completion(prompt, model="gpt-3.5-turbo"):
         completion = client.chat.completions.create(
