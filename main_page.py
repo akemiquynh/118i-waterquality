@@ -96,7 +96,7 @@ with main_tabs[0]:
 
     # Show rotating water-themed image
     image_url = get_random_water_image()
-    st.image(image_url, caption="💧 Clean water, clean future", use_container_width=True)
+    st.image(image_url, caption="💧 Clean water, clean future", width=500)
     
     st.markdown("---")  # Optional visual divider
 
