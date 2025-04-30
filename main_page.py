@@ -30,7 +30,7 @@ def generate_water_image():
     response = client.images.generate(
         prompt=chosen_prompt,
         n=1,
-        size="512x512"
+        size="200x200"
     )
     return response.data[0].url, chosen_prompt
 
@@ -101,7 +101,7 @@ with main_tabs[0]:
 
 # Generate and display AI image
     image_url, used_prompt = generate_water_image()
-    st.image(image_url, caption="💧 AI-Generated Scene: " + used_prompt, use_column_width=True)
+    st.image(image_url, caption="💧 AI-Generated Scene: " + used_prompt, use_container_width=True)
     
     st.markdown("---")  # Optional visual divider
 
