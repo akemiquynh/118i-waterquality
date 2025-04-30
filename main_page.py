@@ -222,10 +222,7 @@ with main_tabs[1]:
                 if st.session_state.faq_audio:
                     st.audio(st.session_state.faq_audio)
 
-        st.markdown("""
-        🔗 **Learn more about water quality in Santa Clara County:**  
-        [Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)
-        """)
+        st.markdown("🔗 **Learn more about water quality in Santa Clara County:**  \n[Santa Clara Valley Water - Water Quality](https://www.valleywater.org/your-water/water-quality)")
 
     # --- 💧 Water Quality Quiz ---
     with edu_tabs[1]:
