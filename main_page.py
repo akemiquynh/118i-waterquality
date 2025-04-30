@@ -21,11 +21,11 @@ client = OpenAI(api_key=OPENAI_API_KEY)
 @st.cache_data
 def get_random_water_image():
     water_images = [
-        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",  # ocean wave
-        "https://images.unsplash.com/photo-1528825871115-3581a5387919",  # stream
-        "https://images.unsplash.com/photo-1583224461797-8b90d72b3c7f",  # child drinking water
-        "https://images.unsplash.com/photo-1620231522637-e6f5406f6c5c",  # water ripple
-        "https://images.unsplash.com/photo-1484312152040-4b35366d3a06"   # glass of water
+        "https://i.imgur.com/sfixLBQ.png",  # pouring water
+        "https://i.imgur.com/iQEoOxk.png",  # washing fruits
+        "https://i.imgur.com/EFO5i7u.png",  # faucet
+        "https://i.imgur.com/cQ17Ktm.png",  # flower on water
+        "https://i.imgur.com/JwXE4Iw.png"   # child drinking water
     ]
     return random.choice(water_images)
 
